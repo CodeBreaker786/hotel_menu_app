@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "895909640100",
+    "firebase_url": "https://sugme-294320.firebaseio.com",
+    "project_id": "sugme-294320",
+    "storage_bucket": "sugme-294320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895909640100:android:cc0710418ab5d6bf053331",
+        "android_client_info": {
+          "package_name": "com.arc360.arc360menu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895909640100-5enf63q0n573fe2oeqsaldt2552q4lbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY10n1pXB6zjMxJCZ0MM-JqcrQ7NmBTsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895909640100-5enf63q0n573fe2oeqsaldt2552q4lbt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "895909640100-g475j873o12t0mu0mn1aagpiv3vaqrkq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sugme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895909640100:android:78a7fb52ef78f6ec053331",
+        "android_client_info": {
+          "package_name": "com.example.sugme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895909640100-5enf63q0n573fe2oeqsaldt2552q4lbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY10n1pXB6zjMxJCZ0MM-JqcrQ7NmBTsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895909640100-5enf63q0n573fe2oeqsaldt2552q4lbt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "895909640100-g475j873o12t0mu0mn1aagpiv3vaqrkq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sugme"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
