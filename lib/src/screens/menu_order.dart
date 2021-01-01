@@ -1,6 +1,7 @@
 import 'package:arc360menu/src/curd/dish_curd/dish_curd.dart';
 import 'package:arc360menu/src/curd/moor_curd.dart';
 import 'package:arc360menu/src/curd/temporder/temporder_curd.dart';
+import 'package:arc360menu/src/screens/menu_home.dart';
 import 'package:flutter/material.dart';
 
 bool widgetVisible = true;
@@ -82,9 +83,15 @@ class _OrderState extends State<Order> {
                                       children: <Widget>[
                                         IconButton(
                                           onPressed: () async {
-                                            await widget.temporderDao
-                                                .updateTemporder(e.copyWith(
-                                                    quantity: e.quantity - 1));
+                                            if (e.quantity == 1) {
+                                              widget.temporderDao
+                                                  .deleteTemporder(e);
+                                            } else {
+                                              widget.temporderDao
+                                                  .updateTemporder(e.copyWith(
+                                                      quantity:
+                                                          e.quantity - 1));
+                                            }
                                           },
                                           icon: Icon(
                                             Icons.remove,
@@ -116,7 +123,7 @@ class _OrderState extends State<Order> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 );
               }

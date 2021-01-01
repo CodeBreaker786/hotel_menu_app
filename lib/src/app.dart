@@ -2,6 +2,7 @@
 
 import 'package:arc360menu/src/screens/MyApp.dart';
 import 'package:arc360menu/src/screens/home.dart';
+import 'package:arc360menu/src/screens/menu_home.dart';
 import 'package:arc360menu/src/serives/fetch_data.dart';
 import 'package:flutter/material.dart';
  
@@ -10,7 +11,8 @@ import '../main.dart';
 import 'curd/auto_fetch/auto_fetch_curd.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  '/Home': (BuildContext context) => Container(),
+  '/Home': (BuildContext context) => MenuHome(),
+  
 };
 
 class Menu360App extends StatefulWidget {
