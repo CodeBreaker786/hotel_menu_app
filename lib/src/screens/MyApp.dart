@@ -1,5 +1,8 @@
-
+import 'package:arc360menu/src/curd/image_curd/photos_curd.dart';
+import 'package:arc360menu/src/curd/moor_curd.dart';
+import 'package:arc360menu/src/models/image.dart';
 import 'package:arc360menu/src/screens/menu_home.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +28,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
- 
-
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  PhotosDao photosDao;
+  var db = AppDatabase();
+  MyHomePage({Key key, this.title}) {
+    photosDao = PhotosDao(db);
+  }
   final String title;
 
   @override
@@ -69,36 +74,43 @@ class _MyHomePageState extends State<MyHomePage> {
         scrollDirection: Axis.vertical,
         children: <Widget>[
           Scaffold(
-              body: Stack(children: <Widget>[
-                Swiper(
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return new Image.network(
-                      'https://www.itl.cat/pngfile/big/43-430987_cute-profile-images-pic-for-whatsapp-for-boys.jpg',
-                      fit: BoxFit.cover,
-                    );
-                  },
-                  loop: true,
-                  autoplay: true,
-                  autoplayDelay: 2000,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 100.0),
-                  child: Container(
-                      alignment: Alignment.bottomCenter,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.arrow_upward),
-                        iconSize: 50,
-                        color: Colors.redAccent,
-                      )),
-                ),
-              ])),
-        MenuHome(),
-       //   MenuBody(),
+              body: FutureBuilder(
+                  future: widget.photosDao.getAllIPhotos(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      List<Photo> photos = snapshot.data;
+                      return Stack(children: <Widget>[
+                        Swiper(
+                          itemCount: photos.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CachedNetworkImage(
+                             
+                              imageUrl:
+                                   photos[index].image.toString(),
+                              fit: BoxFit.cover,
+                            );
+                          },
+                          loop: true,
+                          autoplay: true,
+                          autoplayDelay: 2000,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 100.0),
+                          child: Container(
+                              alignment: Alignment.bottomCenter,
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.arrow_upward),
+                                iconSize: 50,
+                                color: Colors.redAccent,
+                              )),
+                        ),
+                      ]);
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  })),
+          MenuHome(),
+          //   MenuBody(),
         ]);
-
   }
 }
-
-

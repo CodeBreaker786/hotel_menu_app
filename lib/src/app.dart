@@ -16,8 +16,8 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
 };
 
 class Menu360App extends StatefulWidget {
-  AutoFetchDao autoFetchDao;
-  Menu360App(){}
+  // AutoFetchDao autoFetchDao;
+  // Menu360App(){}
   @override
   _Menu360AppState createState() => _Menu360AppState();
 }

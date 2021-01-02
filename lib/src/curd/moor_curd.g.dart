@@ -2026,6 +2026,194 @@ class $AutoFetchsTable extends AutoFetchs
   }
 }
 
+class Photo extends DataClass implements Insertable<Photo> {
+  final int id;
+  final String image;
+  Photo({@required this.id, this.image});
+  factory Photo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return Photo(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      image:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}image']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || image != null) {
+      map['image'] = Variable<String>(image);
+    }
+    return map;
+  }
+
+  PhotosCompanion toCompanion(bool nullToAbsent) {
+    return PhotosCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      image:
+          image == null && nullToAbsent ? const Value.absent() : Value(image),
+    );
+  }
+
+  factory Photo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Photo(
+      id: serializer.fromJson<int>(json['id']),
+      image: serializer.fromJson<String>(json['image']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'image': serializer.toJson<String>(image),
+    };
+  }
+
+  Photo copyWith({int id, String image}) => Photo(
+        id: id ?? this.id,
+        image: image ?? this.image,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Photo(')
+          ..write('id: $id, ')
+          ..write('image: $image')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(id.hashCode, image.hashCode));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Photo && other.id == this.id && other.image == this.image);
+}
+
+class PhotosCompanion extends UpdateCompanion<Photo> {
+  final Value<int> id;
+  final Value<String> image;
+  const PhotosCompanion({
+    this.id = const Value.absent(),
+    this.image = const Value.absent(),
+  });
+  PhotosCompanion.insert({
+    this.id = const Value.absent(),
+    this.image = const Value.absent(),
+  });
+  static Insertable<Photo> custom({
+    Expression<int> id,
+    Expression<String> image,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (image != null) 'image': image,
+    });
+  }
+
+  PhotosCompanion copyWith({Value<int> id, Value<String> image}) {
+    return PhotosCompanion(
+      id: id ?? this.id,
+      image: image ?? this.image,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhotosCompanion(')
+          ..write('id: $id, ')
+          ..write('image: $image')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PhotosTable extends Photos with TableInfo<$PhotosTable, Photo> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $PhotosTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn(
+      'id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _imageMeta = const VerificationMeta('image');
+  GeneratedTextColumn _image;
+  @override
+  GeneratedTextColumn get image => _image ??= _constructImage();
+  GeneratedTextColumn _constructImage() {
+    return GeneratedTextColumn(
+      'image',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, image];
+  @override
+  $PhotosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'photos';
+  @override
+  final String actualTableName = 'photos';
+  @override
+  VerificationContext validateIntegrity(Insertable<Photo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image'], _imageMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Photo map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Photo.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $PhotosTable createAlias(String alias) {
+    return $PhotosTable(_db, alias);
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $DishsTable _dishs;
@@ -2041,9 +2229,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   $TempordersTable get temporders => _temporders ??= $TempordersTable(this);
   $AutoFetchsTable _autoFetchs;
   $AutoFetchsTable get autoFetchs => _autoFetchs ??= $AutoFetchsTable(this);
+  $PhotosTable _photos;
+  $PhotosTable get photos => _photos ??= $PhotosTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [dishs, menus, orders, subCategorys, temporders, autoFetchs];
+      [dishs, menus, orders, subCategorys, temporders, autoFetchs, photos];
 }

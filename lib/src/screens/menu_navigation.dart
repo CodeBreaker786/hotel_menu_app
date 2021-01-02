@@ -1,73 +1,72 @@
-
-
 import 'package:arc360menu/src/cache/in_memory_cache.dart';
 import 'package:arc360menu/src/values/app_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- 
 
- 
 import 'feedback.dart';
 
-
-class MenuNavigation extends StatefulWidget{
-
+class MenuNavigation extends StatefulWidget {
   @override
   _MenuNavigationState createState() => _MenuNavigationState();
-
 }
 
-class _MenuNavigationState extends State<MenuNavigation>{
-
-  // bool isExpand=false;
-  createAlertDialog(BuildContext context){
-
+class _MenuNavigationState extends State<MenuNavigation> {
+  
+  createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
 
-    return showDialog(context: context, builder: (context){
-      return AlertDialog(
-        title: Container(
-            color: Colors.red,
-            child: Center(
-                child: Text("Enter Promo Code",  style: TextStyle(color: Colors.white))
-            )),
-          content: TextField(
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Container(
+                color: Colors.red,
+                child: Center(
+                    child: Text("Enter Promo Code",
+                        style: TextStyle(color: Colors.white)))),
+            content: TextField(
               controller: customController,
-      ),
-      actions: <Widget>[
-          MaterialButton(
-              elevation: 5.0,
-              child: Text('Submit'),
-              onPressed: (){},)
-      ],
-      );
-    });
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                elevation: 5.0,
+                child: Text('Submit'),
+                onPressed: () {},
+              )
+            ],
+          );
+        });
   }
 
   Map<String, dynamic> _menuData, _menuSubData;
 
   List<Widget> _menuWidgets = [];
   List<Widget> _subMenuWidgets = [];
+  
+  @override
+  void initState() {
+    
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
+    ScreenUtil.init(context,height: 843,width: 411);
     _menuData = InMemoryCache().get(AppKeys.DATA_MENU);
     _menuSubData = InMemoryCache().get(AppKeys.DATA_SUBMENU);
 
     return Container(
-
       decoration: BoxDecoration(
-      color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey. withOpacity(0.3),
-          spreadRadius: 3,
-          blurRadius: 7,
-          offset: Offset(0, 6), // changes position of shadow
-        ),
-      ],
-    ),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: Offset(0, 6), // changes position of shadow
+          ),
+        ],
+      ),
       child: Column(
         children: [
           Expanded(
@@ -80,19 +79,25 @@ class _MenuNavigationState extends State<MenuNavigation>{
                 //mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: ScreenUtil().setWidth(23), bottom: ScreenUtil().setWidth(1)),
+                    margin: EdgeInsets.only(
+                        top: ScreenUtil().setWidth(23),
+                        bottom: ScreenUtil().setWidth(1)),
                     //padding: EdgeInsets.only(top: ScreenUtil().setWidth(45), bottom: ScreenUtil().setWidth(5)),
                     child: Text(
                       'Menu',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: ScreenUtil().setSp(30, allowFontScalingSelf: true),
+                        fontSize:
+                            ScreenUtil().setSp(30, allowFontScalingSelf: true),
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: ScreenUtil().setWidth(7), bottom: ScreenUtil().setWidth(1)), //Space between Menu title and promo code
+                    margin: EdgeInsets.only(
+                        top: ScreenUtil().setWidth(7),
+                        bottom: ScreenUtil().setWidth(
+                            1)), //Space between Menu title and promo code
                     decoration: BoxDecoration(
                       color: Colors.white,
                       // borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -163,39 +168,40 @@ class _MenuNavigationState extends State<MenuNavigation>{
           Expanded(
             flex: 10,
             child: Container(
-
-              margin: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)), // spacing from start to dish names
+              margin: EdgeInsets.symmetric(
+                  vertical: ScreenUtil()
+                      .setWidth(5)), // spacing from start to dish names
               child: SingleChildScrollView(
-
                 child: Column(
                   children: [
-
-                    for(int i = 0; i < _menuData['data'].length; i++)
-                    Theme(
-                      data: Theme.of(context).copyWith(accentColor: Colors.white,),
-                      child: ExpansionTile(
-                        backgroundColor: Colors.red[900],
-                        trailing: SizedBox.shrink(),
-
-                        title: Text(
-                          _menuData['data'][i]['cat_name'],
-
-
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: ScreenUtil().setSp(12, allowFontScalingSelf: true,),
-                            //color: (isExpand!=true)?Colors.black:Colors.white,
-                          ),
+                    for (int i = 0; i < _menuData['data'].length; i++)
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                          accentColor: Colors.white,
                         ),
-                        children: _createSubItems(i),
-                        // onExpansionChanged: (value){
-                        //   setState(() {
-                        //     isExpand=value;
-                        //   });
-                        //},
+                        child: ExpansionTile(
+                          backgroundColor: Colors.red[900],
+                          trailing: SizedBox.shrink(),
 
+                          title: Text(
+                            _menuData['data'][i]['cat_name'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: ScreenUtil().setSp(
+                                12,
+                                allowFontScalingSelf: true,
+                              ),
+                              //color: (isExpand!=true)?Colors.black:Colors.white,
+                            ),
+                          ),
+                          children: _createSubItems(i),
+                          // onExpansionChanged: (value){
+                          //   setState(() {
+                          //     isExpand=value;
+                          //   });
+                          //},
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -203,26 +209,27 @@ class _MenuNavigationState extends State<MenuNavigation>{
           ),
           Container(
             color: Colors.black,
-                width: MediaQuery.of(context).size.width,
-                height: ScreenUtil().setWidth(40),
-              //margin: EdgeInsets.all(ScreenUtil().setWidth(14)),
-              child: RaisedButton(
-                onPressed: () {
-                  // InMemoryCache().set('abcd', 45);
-                  Navigator.push(
+            width: MediaQuery.of(context).size.width,
+            height: ScreenUtil().setWidth(40),
+            //margin: EdgeInsets.all(ScreenUtil().setWidth(14)),
+            child: RaisedButton(
+              onPressed: () {
+                // InMemoryCache().set('abcd', 45);
+                Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Scaffold(body:FeedbackWidget()))
-                        // CheckoutWidget(500, 100, "promocode",
-                        //     Order("1", [Item("goan curry", 123, 2)]))),
-                   // Currently only one sample item passed, later make a function and pass that
-                  );
-                },
-                child: Text(
-                  'Check Out',
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(16, allowFontScalingSelf: true)
-                  ),
-                ),
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(body: FeedbackWidget()))
+                    // CheckoutWidget(500, 100, "promocode",
+                    //     Order("1", [Item("goan curry", 123, 2)]))),
+                    // Currently only one sample item passed, later make a function and pass that
+                    );
+              },
+              child: Text(
+                'Check Out',
+                style: TextStyle(
+                    fontSize:
+                       ScreenUtil().setSp(16, allowFontScalingSelf: true)),
+              ),
             ),
           ),
         ],
@@ -230,21 +237,22 @@ class _MenuNavigationState extends State<MenuNavigation>{
     );
   }
 
-
-  List<Widget> _createSubItems(int i){
+  List<Widget> _createSubItems(int i) {
     _subMenuWidgets = [];
-    for(int j = 0; j < _menuSubData['data'].length; j++){
-      if(_menuData['data'][i]['cat_id'] == _menuSubData['data'][j]['cat_id']){
+    for (int j = 0; j < _menuSubData['data'].length; j++) {
+      if (_menuData['data'][i]['cat_id'] == _menuSubData['data'][j]['cat_id']) {
         _subMenuWidgets.add(Container(
           margin: EdgeInsets.all(ScreenUtil().setWidth(8)),
           child: Row(
             children: [
-              Icon(Icons.remove, size: ScreenUtil().setWidth(15),),
+              Icon(
+                Icons.remove,
+                size: ScreenUtil().setWidth(15),
+              ),
               Text(
                 _menuSubData['data'][j]['scat_name'],
                 style: TextStyle(
                   color: Colors.white,
-
                   fontSize: ScreenUtil().setSp(11, allowFontScalingSelf: true),
                 ),
               )
@@ -255,5 +263,4 @@ class _MenuNavigationState extends State<MenuNavigation>{
     }
     return _subMenuWidgets;
   }
-
 }

@@ -1,8 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arc360.arc360menu">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
    <application
         android:label="arc360menu"
         android:icon="@mipmap/ic_launcher">
+        <provider
+                android:name="com.ko2ic.imagedownloader.FileProvider"
+                android:authorities="${applicationId}.image_downloader.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,5 +47,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            <!-- <provider
+                android:name="com.ko2ic.imagedownloader.FileProvider"
+                android:authorities="${applicationId}.image_downloader.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider> -->
     </application>
 </manifest>

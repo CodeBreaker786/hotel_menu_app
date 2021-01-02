@@ -4,6 +4,7 @@
 import 'package:arc360menu/src/cache/data_model.dart';
 import 'package:arc360menu/src/screens/menu_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
  
 
 import 'menu_body.dart';
@@ -24,7 +25,7 @@ class _MenuHomeState extends State<MenuHome>{
 
   @override
   Widget build(BuildContext context) {
-
+  ScreenUtil.init(context,height: 843,width: 411);
     buildDataObj();
 
     return Scaffold(

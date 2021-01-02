@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:arc360menu/src/models/auto_fetch.dart';
 import 'package:arc360menu/src/models/dish.dart';
+import 'package:arc360menu/src/models/image.dart';
 import 'package:arc360menu/src/models/menu.dart';
 import 'package:arc360menu/src/models/order.dart';
 import 'package:arc360menu/src/models/subcategory.dart';
@@ -14,7 +15,7 @@ import 'package:path_provider/path_provider.dart' as paths;
  
 part 'moor_curd.g.dart';
 
-@UseMoor(tables: [Dishs, Menus, Orders, SubCategorys,Temporders,AutoFetchs])
+@UseMoor(tables: [Dishs, Menus, Orders, SubCategorys,Temporders,AutoFetchs,Photos])
 class AppDatabase extends _$AppDatabase {
   static AppDatabase _db = _constructDb();
 

@@ -15,9 +15,13 @@ dependencies:
 
   ink_page_indicator: ^0.1.1
   fluttertoast: ^7.1.5
-  firebase_core: ^0.4.2+1
-  cloud_firestore: ^0.12.11 
+  cloud_firestore: ^0.14.4
+  firebase_core: ^0.5.3
   flutter_screenutil: ^1.1.0
+  image_downloader: ^0.20.1
+  cached_network_image: ^2.5.0
+  
+
  
   moor: ^3.4.0
   moor_ffi: ^0.8.0
